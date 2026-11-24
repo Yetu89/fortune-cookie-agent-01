@@ -26,7 +26,10 @@
 //   - no leading or trailing whitespace
 //   - no control characters (e.g. \t, \0, ANSI escapes)
 // validate() below enforces every one of these before anything is written,
-// so a bad entry can never reach the output file.
+// so a bad entry can never reach the output file. The byte-for-byte
+// read-back in main() is the second line of defence: it proves the file the
+// sealed scorer will read is exactly the validated string, with no trailing
+// newline or encoding surprise added by the write step.
 
 import { writeFileSync, readFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
